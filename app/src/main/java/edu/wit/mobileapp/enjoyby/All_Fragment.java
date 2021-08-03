@@ -7,6 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +55,7 @@ public class All_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -59,6 +66,27 @@ public class All_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all, container, false);
+        View view = inflater.inflate(R.layout.fragment_all, container, false);
+
+        ArrayList<ListItem> items = new ArrayList<ListItem>();
+
+        ListItem item1 = new ListItem();
+        item1.name = "Food 1";
+        item1.purchaseDate = new Date();
+        item1.expireDate = new Date();
+        items.add(item1);
+
+        ListItem item2 = new ListItem();
+        item2.name = "Food 2";
+        item2.purchaseDate = new Date();
+        item2.expireDate = new Date();
+        items.add(item2);
+
+        ListView listView = (ListView)view.findViewById(R.id.list_all);
+
+        FoodListAdapter adapter = new FoodListAdapter(getContext(), 0, items);
+        listView.setAdapter(adapter);
+
+        return view;
     }
 }
