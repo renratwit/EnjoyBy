@@ -1,5 +1,6 @@
 package edu.wit.mobileapp.enjoyby;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import edu.wit.mobileapp.enjoyby.ui.main.SectionsPagerAdapter;
 import edu.wit.mobileapp.enjoyby.databinding.ActivityMainBinding;
@@ -23,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -39,7 +46,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Intent addItemIntent = new Intent();
+                addItemIntent.setClass(MainActivity.this, addItem.class);
+
+                startActivity(addItemIntent);
             }
         });
+
+
     }
 }
