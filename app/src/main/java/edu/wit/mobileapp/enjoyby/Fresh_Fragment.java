@@ -63,23 +63,23 @@ public class Fresh_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all, container, false);
+        View view = inflater.inflate(R.layout.fragment_fresh, container, false);
 
         ArrayList<ListItem> items = new ArrayList<ListItem>();
 
         ListItem item1 = new ListItem();
-        item1.name = "Food 1";
+        item1.name = "Food fresh 1";
         item1.purchaseDate = new Date();
         item1.expireDate = new Date();
         items.add(item1);
 
         ListItem item2 = new ListItem();
-        item2.name = "Food 2";
+        item2.name = "Food fresh 2";
         item2.purchaseDate = new Date();
         item2.expireDate = new Date();
         items.add(item2);
 
-        ListView listView = (ListView)view.findViewById(R.id.list_all);
+        ListView listView = (ListView)view.findViewById(R.id.list_fresh);
 
         FoodListAdapter adapter = new FoodListAdapter(getContext(), 0, items);
         listView.setAdapter(adapter);

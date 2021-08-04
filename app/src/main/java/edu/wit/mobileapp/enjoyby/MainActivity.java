@@ -10,14 +10,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import edu.wit.mobileapp.enjoyby.ui.main.SectionsPagerAdapter;
 import edu.wit.mobileapp.enjoyby.databinding.ActivityMainBinding;
@@ -48,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
 
                 Intent addItemIntent = new Intent();
-                addItemIntent.setClass(MainActivity.this, addItem.class);
+                addItemIntent.setClass(MainActivity.this, AddItem.class);
 
                 startActivity(addItemIntent);
             }
