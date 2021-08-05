@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import edu.wit.mobileapp.enjoyby.ui.main.SectionsPagerAdapter;
 import edu.wit.mobileapp.enjoyby.databinding.ActivityMainBinding;
 
@@ -46,7 +49,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addItemIntent);
             }
         });
+    }
 
+    private void InitializeData() {
+        DatabaseHandler dbHelper = new DatabaseHandler(getApplicationContext());
+        Calendar calPrch = Calendar.getInstance();
+        Calendar calExp = Calendar.getInstance();
+        calPrch.add(Calendar.DATE, -2);
+        calExp.add(Calendar.DATE, -1);
+        dbHelper.createFoodItem("Apple exp", calPrch.getTime(), calExp.getTime());
 
+        calExp.add(Calendar.DATE, 10);
+        dbHelper.createFoodItem("Apple new", calPrch.getTime(), calExp.getTime());
+
+        calPrch.add(Calendar.DATE, -1);
+        calExp.add(Calendar.DATE, 5);
+        dbHelper.createFoodItem("milk new", calPrch.getTime(), calExp.getTime());
     }
 }

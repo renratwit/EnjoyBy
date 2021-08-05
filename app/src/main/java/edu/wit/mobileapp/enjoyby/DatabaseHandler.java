@@ -94,7 +94,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<ListItem> items = new ArrayList<>();
 
         while(cursor.moveToNext()) {
-            long d = cursor.getLong(cursor.getColumnIndexOrThrow(ListItem.SQL.ExpireDate));
             ListItem item = new ListItem();
             item.Id = cursor.getInt(cursor.getColumnIndexOrThrow(ListItem.SQL.Id));
             item.name = cursor.getString(cursor.getColumnIndexOrThrow(ListItem.SQL.Name));
