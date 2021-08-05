@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".All_Fragment"
-    android:background="@android:color/holo_red_dark">
+    tools:context=".All_Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/list_all"
         android:layout_width="fill_parent"

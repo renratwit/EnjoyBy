@@ -1,6 +1,7 @@
 package edu.wit.mobileapp.enjoyby;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FoodListAdapter extends ArrayAdapter {
     private LayoutInflater mInflater;
@@ -23,19 +29,26 @@ public class FoodListAdapter extends ArrayAdapter {
         ListItem item = (ListItem)getItem(position);
         View view = mInflater.inflate(R.layout.list_item, null);
 
+        if (item.expireDate.before(new Date()))
+            view.setBackgroundColor(Color.parseColor("#DE8F8F"));
+
         TextView name;
         name = (TextView)view.findViewById(R.id.name);
         name.setText(item.name);
 
         TextView purchaseDate;
         purchaseDate = (TextView)view.findViewById(R.id.purchase_date);
-        purchaseDate.setText(item.purchaseDate.toString());
+        purchaseDate.setText(getFormattedDate(item.purchaseDate));
 
         TextView expireDate;
         expireDate = (TextView)view.findViewById(R.id.expire_date);
-        expireDate.setText(item.expireDate.toString());
+        expireDate.setText(getFormattedDate(item.expireDate));
 
         return view;
+    }
+
+    private String getFormattedDate(Date date) {
+        return new SimpleDateFormat("MM/dd/yy", Locale.US).format(date);
     }
 
 }
