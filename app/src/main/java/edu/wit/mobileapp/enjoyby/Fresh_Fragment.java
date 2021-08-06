@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +23,18 @@ public class Fresh_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v("myApp", "REACHED FRESH FRAGMENT");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fresh, container, false);
 
         DatabaseHandler dbHelper = new DatabaseHandler(getContext());
-        List<ListItem> items = dbHelper.getExpiredFoodItems();
+        List<ListItem> items = dbHelper.getFreshFoodItems();
 
         ListView listView = (ListView)view.findViewById(R.id.list_fresh);
 
