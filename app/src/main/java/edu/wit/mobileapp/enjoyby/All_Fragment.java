@@ -42,6 +42,11 @@ public class All_Fragment extends Fragment {
         FoodListAdapter adapter = new FoodListAdapter(getContext(), 0, items);
         listView.setAdapter(adapter);
 
+        for(int i = 0; i<items.size(); i++) {
+            Log.v("myApp", String.valueOf(items.get(i).Id));
+        }
+
+
         return view;
     }
 }

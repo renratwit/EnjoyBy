@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +33,8 @@ public class AddItem extends AppCompatActivity {
 
         cancelButton = (Button) findViewById(R.id.cancel_item_button);
         addButton = (Button) findViewById(R.id.add_item_button);
+
+        EditText name = (EditText) findViewById(R.id.item_name);
         EditText purchaseDate = (EditText) findViewById(R.id.purchase_date);
         EditText expireDate = (EditText) findViewById(R.id.expire_date);
 
@@ -46,10 +52,19 @@ public class AddItem extends AppCompatActivity {
             public void onClick(View v) {
                 DatabaseHandler dbHelper = new DatabaseHandler(getApplicationContext());
 
+                String productName = name.getText().toString();
                 Date purchased = stringToDate(purchaseDate.getText().toString());
                 Date expiresAt = stringToDate(expireDate.getText().toString());
 
-                dbHelper.createFoodItem("test", purchased, expiresAt);
+                Log.v("myApp", "Product Name: " + productName);
+                if(productName.matches("")) {
+                    Log.v("myApp", "Empty Item Name");
+                    Snackbar.make(v, "You wanna give this thing a name?", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+
+                dbHelper.createFoodItem(productName, purchased, expiresAt);
                 Intent createIntent = new Intent();
                 createIntent.setClass(AddItem.this, MainActivity.class);
 

@@ -34,6 +34,10 @@
             android:gravity="center_vertical|center_horizontal"
             android:textSize="20dp"
             android:textFontWeight="@integer/material_motion_duration_long_1"/>
+        
+        <Button
+            android:id="@+id/eat_button"
+            android:text="Eat" android:layout_height="wrap_content" android:layout_width="50dp"/>
 
     </LinearLayout>
 
