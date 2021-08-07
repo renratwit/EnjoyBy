@@ -1,5 +1,7 @@
 package edu.wit.mobileapp.enjoyby;
 
+import android.util.Log;
+
 import java.util.Date;
 
 public class ListItem {
