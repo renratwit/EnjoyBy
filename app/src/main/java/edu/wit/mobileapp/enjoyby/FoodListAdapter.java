@@ -3,11 +3,13 @@ package edu.wit.mobileapp.enjoyby;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,10 +36,25 @@ public class FoodListAdapter extends ArrayAdapter {
 
         if (item.expireDate.before(new Date()))
             view.setBackgroundColor(Color.parseColor("#DE8F8F"));
+        
+        Button nameButton = (Button) view.findViewById(R.id.name_button);
+        nameButton.setText(item.name);
+        nameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle extras = new Bundle();
+                Intent intent = new Intent();
+                intent.setClass(getContext(), EditItem.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                extras.putInt("ID", item.Id);
+                extras.putString("NAME", item.name);
+                extras.putLong("PURCHASE_DATE", item.purchaseDate.getTime());
+                extras.putLong("EXPIRATION_DATE", item.expireDate.getTime());
+                intent.putExtras(extras);
 
-        TextView name;
-        name = (TextView)view.findViewById(R.id.name);
-        name.setText(item.name);
+                getContext().startActivity(intent);
+            }
+        });
 
         TextView purchaseDate;
         purchaseDate = (TextView)view.findViewById(R.id.purchase_date);

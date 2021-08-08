@@ -18,14 +18,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:id="@+id/name"
+        <Button
+            android:id="@+id/name_button"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="30"
             android:gravity="center"
             android:textFontWeight="@integer/material_motion_duration_long_1"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#808080"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:text=""/>
 
         <TextView
             android:id="@+id/purchase_date"
