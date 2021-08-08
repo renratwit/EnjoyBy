@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,10 +35,24 @@ public class FoodListAdapter extends ArrayAdapter {
 
         if (item.expireDate.before(new Date()))
             view.setBackgroundColor(Color.parseColor("#DE8F8F"));
+        
+        Button nameButton = (Button) view.findViewById(R.id.name_button);
+        Log.v("myApp", "name: " + item.name);
+        nameButton.setText(item.name);
+        nameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("myApp", String.valueOf(item.Id));
+                //Remove by Id from Database
+                DatabaseHandler dbHelper = new DatabaseHandler(getContext().getApplicationContext());
+                dbHelper.deleteFoodItem(item.Id);
 
-        TextView name;
-        name = (TextView)view.findViewById(R.id.name);
-        name.setText(item.name);
+                //Refresh view
+                Intent intent = new Intent();
+                intent.setClass(getContext(), MainActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
 
         TextView purchaseDate;
         purchaseDate = (TextView)view.findViewById(R.id.purchase_date);
