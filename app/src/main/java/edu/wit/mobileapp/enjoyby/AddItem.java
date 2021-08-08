@@ -25,6 +25,7 @@ public class AddItem extends AppCompatActivity {
 
     Button cancelButton;
     Button addButton;
+    static final int NAME_LIMIT = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,18 @@ public class AddItem extends AppCompatActivity {
                 Date expiresAt = stringToDate(expireDate.getText().toString());
 
                 Log.v("myApp", "Product Name: " + productName);
+
+                // handle empty name
                 if(productName.matches("")) {
                     Log.v("myApp", "Empty Item Name");
                     Snackbar.make(v, "You wanna give this thing a name?", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+                // enforce name limit
+                if(productName.length() > NAME_LIMIT) {
+                    Log.v("myApp", "Name Limit Exceeded");
+                    Snackbar.make(v, "Item Name cannot be longer than 12 characters", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     return;
                 }
@@ -74,10 +84,9 @@ public class AddItem extends AppCompatActivity {
 
         final Calendar calendar = Calendar.getInstance();
 
-        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener purchase = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar calender = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -86,7 +95,7 @@ public class AddItem extends AppCompatActivity {
             }
         };
 
-        DatePickerDialog.OnDateSetListener date2 = new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener expire = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 calendar.set(Calendar.YEAR, year);
@@ -97,17 +106,21 @@ public class AddItem extends AppCompatActivity {
             }
         };
 
+        int YEAR = calendar.get(Calendar.YEAR);
+        int MONTH = calendar.get(Calendar.MONTH);
+        int DAY = calendar.get(Calendar.DAY_OF_MONTH);
+
         purchaseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(AddItem.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(AddItem.this, purchase, YEAR, MONTH, DAY).show();
             }
         });
 
         expireDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(AddItem.this, date2, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH + 1), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(AddItem.this, expire, YEAR, MONTH+1, DAY).show();
             }
         });
     }
