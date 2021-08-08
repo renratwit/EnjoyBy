@@ -65,10 +65,13 @@ public class FoodListAdapter extends ArrayAdapter {
         expireDate.setText(getFormattedDate(item.expireDate));
 
         Button eatButton = (Button)view.findViewById(R.id.eat_button);
+        if(item.expireDate.before(new Date())) {
+            eatButton.setText("Toss");
+        }
         eatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("myApp", String.valueOf(item.Id));
+                Log.v("myApp", String.valueOf(item.expireDate.before(new Date())));
                 //Remove by Id from Database
                 DatabaseHandler dbHelper = new DatabaseHandler(getContext().getApplicationContext());
                 dbHelper.deleteFoodItem(item.Id);
