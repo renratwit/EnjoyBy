@@ -3,6 +3,7 @@ package edu.wit.mobileapp.enjoyby;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,19 +38,20 @@ public class FoodListAdapter extends ArrayAdapter {
             view.setBackgroundColor(Color.parseColor("#DE8F8F"));
         
         Button nameButton = (Button) view.findViewById(R.id.name_button);
-        Log.v("myApp", "name: " + item.name);
         nameButton.setText(item.name);
         nameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("myApp", String.valueOf(item.Id));
-                //Remove by Id from Database
-                DatabaseHandler dbHelper = new DatabaseHandler(getContext().getApplicationContext());
-                dbHelper.deleteFoodItem(item.Id);
-
-                //Refresh view
+                Bundle extras = new Bundle();
                 Intent intent = new Intent();
-                intent.setClass(getContext(), MainActivity.class);
+                intent.setClass(getContext(), EditItem.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                extras.putInt("ID", item.Id);
+                extras.putString("NAME", item.name);
+                extras.putLong("PURCHASE_DATE", item.purchaseDate.getTime());
+                extras.putLong("EXPIRATION_DATE", item.expireDate.getTime());
+                intent.putExtras(extras);
+
                 getContext().startActivity(intent);
             }
         });
