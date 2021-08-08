@@ -27,6 +27,12 @@ public class AddItem extends AppCompatActivity {
     Button addButton;
     static final int NAME_LIMIT = 12;
 
+    final Calendar calendar = Calendar.getInstance();
+
+    int YEAR = calendar.get(Calendar.YEAR);
+    int MONTH = calendar.get(Calendar.MONTH);
+    int DAY = calendar.get(Calendar.DAY_OF_MONTH);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,10 @@ public class AddItem extends AppCompatActivity {
         EditText name = (EditText) findViewById(R.id.item_name);
         EditText purchaseDate = (EditText) findViewById(R.id.purchase_date);
         EditText expireDate = (EditText) findViewById(R.id.expire_date);
+
+        purchaseDate.setText(getDateFormat().format(calendar.getTime()));
+        calendar.set(Calendar.MONTH, MONTH + 1);
+        expireDate.setText(getDateFormat().format(calendar.getTime()));
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +92,7 @@ public class AddItem extends AppCompatActivity {
             }
         });
 
-        final Calendar calendar = Calendar.getInstance();
+
 
         DatePickerDialog.OnDateSetListener purchase = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -106,9 +116,6 @@ public class AddItem extends AppCompatActivity {
             }
         };
 
-        int YEAR = calendar.get(Calendar.YEAR);
-        int MONTH = calendar.get(Calendar.MONTH);
-        int DAY = calendar.get(Calendar.DAY_OF_MONTH);
 
         purchaseDate.setOnClickListener(new View.OnClickListener() {
             @Override
