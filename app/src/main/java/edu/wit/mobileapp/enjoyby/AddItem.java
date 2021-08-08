@@ -25,6 +25,7 @@ public class AddItem extends AppCompatActivity {
 
     Button cancelButton;
     Button addButton;
+    static final int NAME_LIMIT = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,18 @@ public class AddItem extends AppCompatActivity {
                 Date expiresAt = stringToDate(expireDate.getText().toString());
 
                 Log.v("myApp", "Product Name: " + productName);
+
+                // handle empty name
                 if(productName.matches("")) {
                     Log.v("myApp", "Empty Item Name");
                     Snackbar.make(v, "You wanna give this thing a name?", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+                // enforce name limit
+                if(productName.length() > NAME_LIMIT) {
+                    Log.v("myApp", "Name Limit Exceeded");
+                    Snackbar.make(v, "Item Name cannot be longer than 12 characters", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     return;
                 }
