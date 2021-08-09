@@ -21,10 +21,10 @@
         <Button
             android:id="@+id/name_button"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:gravity="center"
+            android:layout_weight="40"
+            android:gravity="center_vertical|left"
             android:textFontWeight="@integer/material_motion_duration_long_1"
             android:textSize="20sp"
             android:textColor="#808080"
@@ -33,27 +33,19 @@
             android:text=""/>
 
         <TextView
-            android:id="@+id/purchase_date"
-            android:layout_width="wrap_content"
+            android:id="@+id/days_left"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:gravity="center"
-            android:textFontWeight="@integer/material_motion_duration_long_1"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/expire_date"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
+            android:layout_weight="40"
             android:gravity="center"
             android:textFontWeight="@integer/material_motion_duration_long_1"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/eat_button"
-            android:layout_width="65dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_weight="20"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Eat"

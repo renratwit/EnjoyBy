@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        expireDate = setEndOfDay(expireDate);
+
         values.put(ListItem.SQL.Name, name);
         values.put(ListItem.SQL.PurchaseDate, purchaseDate.getTime());
         values.put(ListItem.SQL.ExpireDate, expireDate.getTime());
@@ -41,6 +44,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(ListItem.SQL.Table, null, createFoodItemContentValues(name, purchaseDate, expireDate));
 
         db.close();
+    }
+
+    private Date setEndOfDay(Date date) {
+        final Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.HOUR, 11);
+        calendar.set(Calendar.AM_PM, Calendar.PM);
+
+        return calendar.getTime();
     }
 
     private ContentValues createFoodItemContentValues(String name, Date purchaseDate, Date expireDate) {
@@ -54,22 +69,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public List<ListItem> getFoodItems() {
-        return getFoodItems(null, null);
+        List items = getFreshFoodItems();
+        items.addAll(getExpiredFoodItems());
+        return items;
     }
 
     public List<ListItem> getExpiredFoodItems() {
         String selection = ListItem.SQL.ExpireDate + " < ?";
         String[] selectionArgs = { Long.toString(new Date().getTime()) };
-        return getFoodItems(selection, selectionArgs);
+        return getFoodItems(selection, selectionArgs,true);
     }
 
     public List<ListItem> getFreshFoodItems() {
         String selection = ListItem.SQL.ExpireDate + " > ?";
         String[] selectionArgs = { Long.toString(new Date().getTime()) };
-        return getFoodItems(selection, selectionArgs);
+        return getFoodItems(selection, selectionArgs, true);
     }
 
-    public List<ListItem> getFoodItems(String selection, String[] selectionArgs) {
+    public List<ListItem> getFoodItems(String selection, String[] selectionArgs, Boolean asc) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String[] projection = {
@@ -79,7 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 ListItem.SQL.ExpireDate
         };
 
-        String sortOrder = ListItem.SQL.Id + " ASC";
+        String sortOrder = ListItem.SQL.ExpireDate + " " + (asc ? "ASC" : "DESC");
 
         Cursor cursor = db.query(
                 ListItem.SQL.Table,
