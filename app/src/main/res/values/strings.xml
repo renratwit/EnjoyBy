@@ -4,5 +4,22 @@
     <string name="tab_text_2">Fresh</string>
     <string name="tab_text_3">Expired</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="deleteOne_title">Delete item.</string>
+    <string name="deleteOne_message">" Are you sure you want to delete the selected item ?"</string>
+    <string name="app_yes">Yes</string>
+    <string name="app_no">No</string>
+    <string name="app_ok" translatable="false">Ok</string>
+    <string name="app_modify">Modify</string>
+    <string name="app_cancel">Cancel</string>
+    <string name="addOne_title">Add one item.</string>
+    <string name="addOne_message">Complete the information to add an item.</string>
+    <string name="addOne_name">Name...</string>
+    <string name="addOne_note">Note...</string>
+    <string name="addOne_important">Important item</string>
+    <string name="modifyOne_title">Modify item.</string>
+    <string name="modifyOne_message">Complete the information to modify this item.</string>
+    <string name="app_listNoEmpty">Here is your list of items :</string>
+    <string name="app_listEmpty">The list doesn\'t contain any element !</string>
+    <string name="app_example">Get 2 bottles of Milk</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
