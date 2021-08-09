@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
 
-        Button goToShopping = (Button) findViewById(R.id.goShoppingButton);
+
         FloatingActionButton fab = binding.fab;
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,13 +53,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        goToShopping.setOnClickListener(new View.OnClickListener() {
+        Button goShoppingButton = binding.goShoppingButton;
+        goShoppingButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent goToIntent = new Intent();
-                goToIntent.setClass(MainActivity.this, Shopping_List.class);
+            public void onClick(View view) {
+                Intent goToShoppingIntent = new Intent();
+                goToShoppingIntent.setClass(MainActivity.this, Shopping_List.class);
 
-                startActivity(goToIntent);
+                startActivity(goToShoppingIntent);
             }
         });
     }

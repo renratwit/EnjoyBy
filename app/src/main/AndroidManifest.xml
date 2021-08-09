@@ -11,6 +11,8 @@
         android:theme="@style/Theme.EnjoyBy">
         <activity android:name=".AddItem"></activity>
         <activity android:name=".EditItem"></activity>
+        <activity android:name=".Shopping_List"></activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
