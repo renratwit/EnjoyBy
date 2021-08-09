@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
+
+        Button goToShopping = (Button) findViewById(R.id.goShoppingButton);
         FloatingActionButton fab = binding.fab;
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
                 addItemIntent.setClass(MainActivity.this, AddItem.class);
 
                 startActivity(addItemIntent);
+            }
+        });
+
+        goToShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToIntent = new Intent();
+                goToIntent.setClass(MainActivity.this, Shopping_List.class);
+
+                startActivity(goToIntent);
             }
         });
     }
